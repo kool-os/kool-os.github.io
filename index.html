@@ -3,81 +3,62 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Kool OS</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
-  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
-  <script src="https://unpkg.com/react-router-dom@6/umd/react-router-dom.development.js"></script>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body class="bg-black text-white min-h-screen font-sans">
-  <div id="root" class="p-4"></div>
-  <script type="text/javascript">
-    const { BrowserRouter, Routes, Route, Link } = ReactRouterDOM;
+<body class="bg-black text-white font-sans">
+  <nav class="bg-gray-800 p-4 shadow-md flex justify-between">
+    <h1 class="font-bold text-xl">Kool OS</h1>
+    <div class="space-x-4">
+      <a href="#home" class="hover:underline">Home</a>
+      <a href="#download" class="hover:underline">Download</a>
+      <a href="#about" class="hover:underline">About</a>
+      <a href="#info" class="hover:underline">Info</a>
+    </div>
+  </nav>
 
-    function Home() {
-      return React.createElement('div', null,
-        React.createElement('h1', { className: 'text-4xl font-bold mb-2' }, 'Welcome to Kool OS'),
-        React.createElement('p', { className: 'text-lg' }, 'A modern Linux distro for desktop and mobile, built on KDE and powered by innovation.')
-      );
-    }
+  <main class="p-6 space-y-12">
+    <section id="home">
+      <h2 class="text-4xl font-bold mb-4">Welcome to Kool OS</h2>
+      <p class="text-lg">A modern Linux distro for desktop and mobile, built on KDE and powered by innovation.</p>
+    </section>
 
-    function Download() {
-      return React.createElement('div', null,
-        React.createElement('h2', { className: 'text-2xl font-semibold mb-2' }, 'Download Kool OS IMG'),
-        React.createElement('ul', { className: 'list-disc list-inside' }, [
-          React.createElement('li', null,
-            React.createElement('a', { href: 'https://archive.org/details/kool-os-desktop', className: 'text-blue-400 underline' }, 'Kool OS Desktop (ISO)')
-          ),
-          React.createElement('li', null,
-            React.createElement('a', { href: 'https://archive.org/details/kool-mobel', className: 'text-blue-400 underline' }, 'Kool Mobel (Mobile Image)')
-          ),
-          React.createElement('li', null,
-            React.createElement('a', { href: 'https://archive.org/details/kool-mobel_86', className: 'text-blue-400 underline' }, 'Kool Mobel_86 (PC Version)')
-          )
-        ])
-      );
-    }
+    <section id="download">
+      <h2 class="text-2xl font-semibold mb-2">Download Kool OS IMG</h2>
+      <ul class="list-disc list-inside">
+        <li><a href="https://archive.org/details/kool-os-desktop" class="text-blue-400 underline">Kool OS Desktop (ISO)</a></li>
+        <li><a href="https://archive.org/details/kool-mobel" class="text-blue-400 underline">Kool Mobel (Mobile Image)</a></li>
+        <li><a href="https://archive.org/details/kool-mobel_86" class="text-blue-400 underline">Kool Mobel_86 (PC Version)</a></li>
+      </ul>
+    </section>
 
-    function About() {
-      return React.createElement('div', null,
-        React.createElement('h2', { className: 'text-2xl font-semibold mb-2' }, 'About Kool OS'),
-        React.createElement('p', { className: 'mb-4' }, 'Kool OS is a Linux distribution designed for both public users and developers. Based on KDE neon, with a variant built on Arch Linux.')
-      );
-    }
+    <section id="about">
+      <h2 class="text-2xl font-semibold mb-2">About Kool OS</h2>
+      <p class="mb-4">Kool OS is a Linux distribution designed for both public users and developers. Based on KDE neon, with an Arch variant, it features a custom app store, modern browser stack, and mobile integration.</p>
+      <ul class="list-disc list-inside">
+        <li>Developer Friendly</li>
+        <li>Mobile Ready (Kool Mobel)</li>
+        <li>Powerful Terminal Tools</li>
+        <li>Global Community</li>
+        <li>GitHub: <a href="https://github.com/koolos" class="text-blue-400 underline">koolos</a></li>
+        <li>Support: <a href="mailto:koolossupport@gmail.com" class="text-blue-400 underline">koolossupport@gmail.com</a></li>
+      </ul>
+    </section>
 
-    function Info() {
-      return React.createElement('div', null,
-        React.createElement('h2', { className: 'text-2xl font-semibold mb-2' }, 'Code Used to Make Kool OS IMG'),
-        React.createElement('p', null, 'Supports DEB and Pacman, runs on desktop, mobile, and Steam Deck. Built by SDSoft.')
-      );
-    }
-
-    function App() {
-      return React.createElement(BrowserRouter, null,
-        React.createElement('div', null,
-          React.createElement('nav', { className: 'bg-gray-800 p-4 flex justify-between' },
-            React.createElement('div', { className: 'font-bold text-xl' }, 'Kool OS'),
-            React.createElement('div', { className: 'space-x-4' }, [
-              React.createElement(Link, { to: '/', className: 'hover:underline' }, 'Home'),
-              React.createElement(Link, { to: '/download', className: 'hover:underline' }, 'Download'),
-              React.createElement(Link, { to: '/about', className: 'hover:underline' }, 'About'),
-              React.createElement(Link, { to: '/info', className: 'hover:underline' }, 'Info')
-            ])
-          ),
-          React.createElement('main', { className: 'p-4' },
-            React.createElement(Routes, null, [
-              React.createElement(Route, { path: '/', element: React.createElement(Home) }),
-              React.createElement(Route, { path: '/download', element: React.createElement(Download) }),
-              React.createElement(Route, { path: '/about', element: React.createElement(About) }),
-              React.createElement(Route, { path: '/info', element: React.createElement(Info) })
-            ])
-          )
-        )
-      );
-    }
-
-    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-  </script>
+    <section id="info">
+      <h2 class="text-2xl font-semibold mb-2">Info</h2>
+      <p class="mb-4">Kool OS supports DEB and Pacman (C-based) package systems. Designed for desktops, mobile, and Steam Deck.</p>
+      <pre class="bg-gray-800 text-white p-4 rounded-md">
+sudo apt update && sudo apt upgrade -y
+sudo apt install kde-standard firefox chromium-browser
+      </pre>
+      <pre class="bg-gray-800 text-white p-4 rounded-md mt-2">
+# For Arch-based Kool OS
+sudo pacman -Syu
+sudo pacman -S plasma firefox chromium
+      </pre>
+    </section>
+  </main>
 </body>
 </html>
