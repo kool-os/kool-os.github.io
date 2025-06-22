@@ -3,62 +3,146 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Kool OS</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kool OS - Countdown Site</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background: #f0f0f0;
+      color: #222;
+      transition: background 0.3s, color 0.3s;
+    }
+    body.dark-mode {
+      background: #121212;
+      color: #f0f0f0;
+    }
+    header {
+      background: #2196F3;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+    }
+    nav a {
+      color: white;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+    .dark-toggle {
+      background: none;
+      border: 2px solid white;
+      border-radius: 10px;
+      padding: 5px 10px;
+      cursor: pointer;
+      color: white;
+    }
+    main {
+      padding: 2rem;
+      max-width: 900px;
+      margin: auto;
+    }
+    .countdown {
+      font-size: 2rem;
+      margin-top: 1rem;
+      background: #e0e0e0;
+      padding: 1rem;
+      border-radius: 1rem;
+      text-align: center;
+    }
+    body.dark-mode .countdown {
+      background: #333;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #ddd;
+      color: #444;
+    }
+    body.dark-mode footer {
+      background: #1e1e1e;
+      color: #aaa;
+    }
+  </style>
 </head>
-<body class="bg-black text-white font-sans">
-  <nav class="bg-gray-800 p-4 shadow-md flex justify-between">
-    <h1 class="font-bold text-xl">Kool OS</h1>
-    <div class="space-x-4">
-      <a href="#home" class="hover:underline">Home</a>
-      <a href="#download" class="hover:underline">Download</a>
-      <a href="#about" class="hover:underline">About</a>
-      <a href="#info" class="hover:underline">Info</a>
+<body>
+  <header>
+    <h1>Kool OS</h1>
+    <div>
+      <nav>
+        <a href="#about">About</a>
+        <a href="#download">Download</a>
+      </nav>
+      <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
     </div>
-  </nav>
+  </header>
 
-  <main class="p-6 space-y-12">
-    <section id="home">
-      <h2 class="text-4xl font-bold mb-4">Welcome to Kool OS</h2>
-      <p class="text-lg">A modern Linux distro for desktop and mobile, built on KDE and powered by innovation.</p>
-    </section>
-
-    <section id="download">
-      <h2 class="text-2xl font-semibold mb-2">Download Kool OS IMG</h2>
-      <ul class="list-disc list-inside">
-        <li><a href="https://archive.org/details/kool-os-desktop" class="text-blue-400 underline">Kool OS Desktop (ISO)</a></li>
-        <li><a href="https://archive.org/details/kool-mobel" class="text-blue-400 underline">Kool Mobel (Mobile Image)</a></li>
-        <li><a href="https://archive.org/details/kool-mobel_86" class="text-blue-400 underline">Kool Mobel_86 (PC Version)</a></li>
+  <main>
+    <section>
+      <h2>Welcome to Kool OS</h2>
+      <p>Kool OS is a custom Linux distribution with two editions:</p>
+      <ul>
+        <li><strong>Kool OS -d</strong>: Debian Edition</li>
+        <li><strong>Kool OS -a</strong>: Arch Edition</li>
       </ul>
+      <p>Each is designed to deliver speed, performance, and developer-friendly tools with a KDE-based Android-style UI.</p>
+      <div class="countdown" id="countdown">Loading timer...</div>
     </section>
 
     <section id="about">
-      <h2 class="text-2xl font-semibold mb-2">About Kool OS</h2>
-      <p class="mb-4">Kool OS is a Linux distribution designed for both public users and developers. Based on KDE neon, with an Arch variant, it features a custom app store, modern browser stack, and mobile integration.</p>
-      <ul class="list-disc list-inside">
-        <li>Developer Friendly</li>
-        <li>Mobile Ready (Kool Mobel)</li>
-        <li>Powerful Terminal Tools</li>
-        <li>Global Community</li>
-        <li>GitHub: <a href="https://github.com/koolos" class="text-blue-400 underline">koolos</a></li>
-        <li>Support: <a href="mailto:koolossupport@gmail.com" class="text-blue-400 underline">koolossupport@gmail.com</a></li>
-      </ul>
+      <h2>About Kool OS</h2>
+      <p>Built by SDSoft, Kool OS brings innovation to Linux desktops. Enjoy a developer-centric KDE experience with your choice of Debian or Arch base systems.</p>
     </section>
 
-    <section id="info">
-      <h2 class="text-2xl font-semibold mb-2">Info</h2>
-      <p class="mb-4">Kool OS supports DEB and Pacman (C-based) package systems. Designed for desktops, mobile, and Steam Deck.</p>
-      <pre class="bg-gray-800 text-white p-4 rounded-md">
-sudo apt update && sudo apt upgrade -y
-sudo apt install kde-standard firefox chromium-browser
-      </pre>
-      <pre class="bg-gray-800 text-white p-4 rounded-md mt-2">
-# For Arch-based Kool OS
-sudo pacman -Syu
-sudo pacman -S plasma firefox chromium
-      </pre>
+    <section id="download">
+      <h2>Download</h2>
+      <p>New releases drop every 60 days. Stay tuned!</p>
+      <button disabled>Coming Soon</button>
     </section>
   </main>
+
+  
+<footer>
+  &copy; 2025–2026 SDSoft. Kool OS is a trademark of SDSoft. |
+  <a href="https://archive.org/details/@kool-os-dev" target="_blank" rel="noopener noreferrer">GitHub/Archive.org</a>
+</footer>
+
+
+  <script>
+    const endDate = new Date("2025-06-18T00:00:00Z").getTime();
+    const duration = 60 * 24 * 60 * 60 * 1000;
+
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const target = endDate + Math.floor((now - endDate) / duration) * duration + duration;
+      const distance = target - now;
+
+      if (distance <= 0) {
+        document.getElementById("countdown").innerText = "00d 00h 00m 00s";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerText = 
+        `${String(days).padStart(2, '0')}d ${String(hours).padStart(2, '0')}h ${String(minutes).padStart(2, '0')}m ${String(seconds).padStart(2, '0')}s`;
+
+      setTimeout(updateCountdown, 1000);
+    }
+
+    function toggleDarkMode() {
+      document.body.classList.toggle("dark-mode");
+    }
+
+    updateCountdown();
+  </script>
 </body>
 </html>
