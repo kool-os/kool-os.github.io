@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kool OS - Debian Edition</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #ffffff;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: #1e1e1e;
+    }
+    button {
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #darkModeToggle {
+      background: #333;
+      color: #fff;
+    }
+    main {
+      padding: 2rem;
+    }
+    textarea {
+      width: 100%;
+      height: 200px;
+    }
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #1e1e1e;
+      margin-top: 2rem;
+    }
+  </style>
+</head>
+<body class="dark">
+  <header>
+    <h1>Kool OS</h1>
+    <button id="darkModeToggle">🌙</button>
+  </header>
+
+  <main>
+    <section id="home">
+      <h2>Welcome to Kool OS</h2>
+      <p>Kool OS is based on <b>Debian 12 (Bookworm)</b>. Updates may vary depending on development.</p>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>Kool OS is designed with KDE and focuses on simplicity, speed, and modern Linux experiences.</p>
+    </section>
+
+    <section id="download">
+      <h2>Download</h2>
+      <p>Choose your edition:</p>
+      <ul>
+        <li><b>-d</b> Debian 12 (Bookworm)</li>
+        <li><b>-a</b> Arch Linux edition</li>
+      </ul>
+      <p>Check out more at our <a href="https://archive.org/details/@kool-os-dev" target="_blank">Archive.org page</a>.</p>
+    </section>
+
+    <section id="admin">
+      <h2>Admin Panel</h2>
+      <div id="login">
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
+      </div>
+
+      <div id="editor" style="display:none;">
+        <textarea id="editorArea"></textarea><br>
+        <button id="saveBtn">Save Changes</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Kool OS Development</p>
+  </footer>
+  <script>
+    // Dark mode toggle
+    const toggle = document.getElementById('darkModeToggle');
+    const body = document.body;
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+      if (body.classList.contains('dark')) {
+        body.style.backgroundColor = '#121212';
+        body.style.color = '#fff';
+      } else {
+        body.style.backgroundColor = '#fff';
+        body.style.color = '#000';
+      }
+    });
+
+    // Admin login
+    const loginBtn = document.getElementById('loginBtn');
+    const editor = document.getElementById('editor');
+    const loginDiv = document.getElementById('login');
+    const editorArea = document.getElementById('editorArea');
+    const saveBtn = document.getElementById('saveBtn');
+
+    loginBtn.addEventListener('click', () => {
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      if (username === "admin" && password === "admin") {
+        loginDiv.style.display = "none";
+        editor.style.display = "block";
+        editorArea.value = localStorage.getItem("siteContent") || document.body.innerHTML;
+      } else {
+        alert("Invalid credentials!");
+      }
+    });
+
+    // Save edits
+    saveBtn.addEventListener('click', () => {
+      localStorage.setItem("siteContent", editorArea.value);
+      document.body.innerHTML = editorArea.value;
+      alert("Changes saved!");
+    });
+  </script>
+</body>
+</html>
