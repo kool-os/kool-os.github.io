@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kool OS — Debian 12 Bookworm</title>
+
+  <!-- If a saved full HTML exists, load it immediately -->
+  <script>
+    (function boot() {
+      try {
+        var saved = localStorage.getItem("koolos_full_html");
+        if (saved && saved.length > 0) {
+          document.open(); document.write(saved); document.close();
+        }
+      } catch(e) {}
+    })();
+  </script>
+
+  <style>
+    :root {
+      --bg: #0f1418;
+      --text: #e6edf3;
+      --muted: #99aab5;
+      --card: #111a21;
+      --primary: #2196f3;
+      --primary-2: #1976d2;
+      --accent: #00e5ff;
+      --border: #26323a;
+    }
+    [data-theme="light"] {
+      --bg: #f4f8fb;
+      --text: #1f2937;
+      --muted: #4b5563;
+      --card: #ffffff;
+      --primary: #2196f3;
+      --primary-2: #1976d2;
+      --accent: #00bcd4;
+      --border: #e5e7eb;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; }
+    header {
+      position: sticky; top: 0; z-index: 10;
+      background: linear-gradient(90deg, var(--primary), var(--primary-2));
+      color: #fff; padding: 12px 18px; display: flex; align-items: center; justify-content: space-between;
+    }
+    header .brand { font-weight: 800; letter-spacing: .08em; }
+    header nav a { color: #fff; text-decoration: none; margin-left: 16px; font-weight: 700; }
+    .wrap { max-width: 960px; margin: 28px auto; padding: 0 16px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 22px; box-shadow: 0 8px 24px rgba(0,0,0,.25); }
+    .hero { text-align: center; }
+    h1, h2 { margin: 0 0 8px; }
+    p.lead { color: var(--muted); margin-top: 0; }
+    .badges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .badge { background: #24323c; color: #cce7ff; padding: 6px 10px; border-radius: 999px; font-size: .85rem; border: 1px solid var(--border); }
+    .btn { display: inline-block; background: var(--primary); color: #fff; border: 0; border-radius: 24px; padding: 10px 16px; font-weight: 800; cursor: pointer; }
+    .btn.alt { background: #2f3c46; color: #c8d3dc; }
+    footer { text-align: center; color: var(--muted); padding: 24px; }
+    footer a { color: #8ec6ff; text-decoration: none; }
+
+    /* Admin floating button */
+    .fab-admin {
+      position: fixed; right: 16px; bottom: 16px; z-index: 50;
+      border: 0; border-radius: 999px; padding: 12px 16px; font-weight: 900;
+      background: var(--accent); color: #012026; cursor: pointer; box-shadow: 0 8px 18px rgba(0,0,0,.35);
+    }
+
+    /* Modal */
+    .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.55); display: none; align-items: center; justify-content: center; z-index: 60; }
+    .modal { width: min(760px, 94vw); background: var(--card); border: 1px solid var(--border); border-radius: 16px; overflow: hidden; box-shadow: 0 24px 70px rgba(0,0,0,.5); }
+    .modal header { background: var(--card); color: var(--text); padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; }
+    .modal .content { padding: 16px; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 720px) { .row { grid-template-columns: 1fr; } }
+    .input, .editor { width: 100%; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); background: #0d141a; color: #e6edf3; }
+    [data-theme="light"] .input, [data-theme="light"] .editor { background: #fff; color: #111; }
+    .editor { min-height: 220px; resize: vertical; }
+    .tabs { display: flex; gap: 8px; margin-bottom: 10px; }
+    .tab { padding: 8px 12px; border-radius: 10px; background: #22303a; color: #d7ecff; cursor: pointer; user-select: none; }
+    .tab.active { background: var(--primary); color: #fff; }
+
+    /* Dark/light toggle (optional) */
+    .toggle { border: 1px solid rgba(255,255,255,.5); background: transparent; color: #fff; border-radius: 999px; padding: 6px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand" data-edit-id="brand">KOOL OS</div>
+    <nav>
+      <a href="#about" data-edit-id="nav-about">About</a>
+      <a href="#download" data-edit-id="nav-download">Download</a>
+    </nav>
+    <button class="toggle" id="themeToggle" title="Toggle theme">🌙</button>
+  </header>
+
+  <div class="wrap">
+    <section class="card hero">
+      <h1 data-edit-id="hero-title">Kool OS — Debian 12 Bookworm</h1>
+      <p class="lead" data-edit-id="hero-subtitle">Based on Debian 12 (Bookworm) with KDE Plasma. Updates may vary. Dark mode by default.</p>
+    </section>
+
+    <section id="about" class="card" style="margin-top:16px;">
+      <h2 data-edit-id="about-title">About</h2>
+      <p class="lead" data-edit-id="about-text">
+        Kool OS is a developer‑friendly desktop built on <strong>Debian 12 Bookworm</strong>, featuring KDE Plasma and an Android‑style UI.
+      </p>
+      <div class="badges">
+        <div class="badge">Debian 12 Bookworm</div>
+        <div class="badge">KDE Plasma</div>
+        <div class="badge">Android‑style UI</div>
+      </div>
+    </section>
+
+    <section id="download" class="card" style="margin-top:16px;">
+      <h2 data-edit-id="download-title">Download</h2>
+      <p class="lead" data-edit-id="download-text">Releases are published as ready. No countdown — updates may vary.</p>
+      <button class="btn" disabled data-edit-id="download-button">Coming Soon</button>
+    </section>
+  </div>
+
+  <footer>
+    &copy; 2025–2026 SDSoft. Kool OS is a trademark of SDSoft. |
+    <a href="https://archive.org/details/@kool-os-dev" target="_blank" rel="noopener noreferrer">Archive.org profile</a>
+  </footer>
+
+  <!-- Floating Admin button -->
+  <button class="fab-admin" id="openAdmin" title="Admin">Admin</button>
+
+  <!-- Admin modal -->
+  <div class="modal-backdrop" id="adminModal">
+    <div class="modal">
+      <header>
+        <strong>Admin</strong>
+        <button class="btn alt" id="closeModal">Close</button>
+      </header>
+      <div class="content">
+        <!-- Login view -->
+        <div id="adminLoginView">
+          <div class="row">
+            <input id="adminUser" class="input" placeholder="Username" autocomplete="username">
+            <input id="adminPass" class="input" type="password" placeholder="Password" autocomplete="current-password">
+          </div>
+          <div style="margin-top:12px; display:flex; gap:10px; justify-content:flex-end;">
+            <button class="btn" id="loginBtn">Login</button>
+          </div>
+          <p class="lead" style="margin-top:10px;">Use <code>admin / admin</code> to sign in. (Demo only — change later!)</p>
+        </div>
+
+        <!-- Editor view -->
+        <div id="adminEditorView" style="display:none;">
+          <div class="tabs">
+            <div class="tab active" data-tab="text">Text Fields</div>
+            <div class="tab" data-tab="html">Full HTML</div>
+          </div>
+
+          <!-- Text Fields editor -->
+          <div id="tab-text">
+            <div class="row" style="margin-bottom:10px;">
+              <textarea id="field-hero-title" class="editor" placeholder="Hero title"></textarea>
+              <textarea id="field-hero-subtitle" class="editor" placeholder="Hero subtitle"></textarea>
+            </div>
+            <div class="row" style="margin-bottom:10px;">
+              <textarea id="field-about-title" class="editor" placeholder="About title"></textarea>
+              <textarea id="field-about-text" class="editor" placeholder="About text"></textarea>
+            </div>
+            <div class="row" style="margin-bottom:10px;">
+              <textarea id="field-download-title" class="editor" placeholder="Download title"></textarea>
+              <textarea id="field-download-text" class="editor" placeholder="Download text"></textarea>
+            </div>
+            <div style="display:flex; gap:10px; justify-content:flex-end;">
+              <button class="btn" id="saveText">Save Text</button>
+            </div>
+          </div>
+
+          <!-- Full HTML editor -->
+          <div id="tab-html" style="display:none;">
+            <textarea id="fullHtml" class="editor" style="min-height:380px;" placeholder="Edit full HTML here"></textarea>
+            <div style="display:flex; gap:10px; justify-content:flex-end; margin-top:10px;">
+              <button class="btn" id="saveFull">Save Full HTML</button>
+              <button class="btn alt" id="clearFull">Clear Saved HTML</button>
+            </div>
+            <p class="lead" style="margin-top:8px;">Saving full HTML replaces the entire page on next load (stored in <code>localStorage</code>).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Default to dark
+    document.documentElement.setAttribute("data-theme","dark");
+    // Optional theme toggle
+    var themeToggle = document.getElementById("themeToggle");
+    themeToggle.addEventListener("click", function() {
+      var isDark = document.documentElement.getAttribute("data-theme") !== "light";
+      document.documentElement.setAttribute("data-theme", isDark ? "light" : "dark");
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+    });
+
+    // Admin modal
+    var openAdmin = document.getElementById("openAdmin");
+    var adminModal = document.getElementById("adminModal");
+    var closeModal = document.getElementById("closeModal");
+    openAdmin.addEventListener("click", function(){ adminModal.style.display = "flex"; });
+    closeModal.addEventListener("click", function(){ adminModal.style.display = "none"; });
+
+    // Login
+    var adminLoginView = document.getElementById("adminLoginView");
+    var adminEditorView = document.getElementById("adminEditorView");
+    var loginBtn = document.getElementById("loginBtn");
+    loginBtn.addEventListener("click", function() {
+      var u = (document.getElementById("adminUser").value || "").trim();
+      var p = (document.getElementById("adminPass").value || "");
+      if (u === "admin" && p === "admin") {
+        adminLoginView.style.display = "none";
+        adminEditorView.style.display = "block";
+        loadTextFields();
+        document.getElementById("fullHtml").value = document.documentElement.outerHTML;
+      } else {
+        alert("Invalid credentials");
+      }
+    });
+
+    // Tabs
+    var tabs = document.querySelectorAll(".tab");
+    var tabText = document.getElementById("tab-text");
+    var tabHtml = document.getElementById("tab-html");
+    tabs.forEach(function(t){
+      t.addEventListener("click", function(){
+        tabs.forEach(function(x){ x.classList.remove("active"); });
+        t.classList.add("active");
+        var which = t.getAttribute("data-tab");
+        tabText.style.display = which === "text" ? "block" : "none";
+        tabHtml.style.display = which === "html" ? "block" : "none";
+      });
+    });
+
+    // Map editable text fields
+    var mapIds = {
+      "hero-title": "field-hero-title",
+      "hero-subtitle": "field-hero-subtitle",
+      "about-title": "field-about-title",
+      "about-text": "field-about-text",
+      "download-title": "field-download-title",
+      "download-text": "field-download-text"
+    };
+
+    function loadTextFields() {
+      for (var id in mapIds) {
+        var el = document.querySelector("[data-edit-id='"+id+"']");
+        var input = document.getElementById(mapIds[id]);
+        if (el && input) { input.value = el.innerHTML.trim(); }
+      }
+    }
+
+    function applyTextFields() {
+      for (var id in mapIds) {
+        var el = document.querySelector("[data-edit-id='"+id+"']");
+        var input = document.getElementById(mapIds[id]);
+        if (el && input) { el.innerHTML = input.value; }
+      }
+    }
+
+    // Persist/restore text-only edits
+    var SAVE_KEY = "koolos_edits";
+    function saveTextEdits() {
+      var payload = {};
+      for (var id in mapIds) {
+        var input = document.getElementById(mapIds[id]);
+        payload[id] = input ? input.value : "";
+      }
+      try { localStorage.setItem(SAVE_KEY, JSON.stringify(payload)); } catch (e) {}
+    }
+    function restoreTextEdits() {
+      try {
+        var raw = localStorage.getItem(SAVE_KEY);
+        if (!raw) return;
+        var data = JSON.parse(raw);
+        for (var id in data) {
+          var el = document.querySelector("[data-edit-id='"+id+"']");
+          if (el) el.innerHTML = data[id];
+        }
+      } catch (e) {}
+    }
+    restoreTextEdits(); // apply on load
+
+    document.getElementById("saveText").addEventListener("click", function(){
+      applyTextFields();
+      saveTextEdits();
+      alert("Text saved.");
+    });
+
+    // Full HTML save/clear
+    document.getElementById("saveFull").addEventListener("click", function(){
+      var html = document.getElementById("fullHtml").value;
+      if (!html || html.indexOf("<html") === -1) {
+        alert("Paste a complete HTML document.");
+        return;
+      }
+      try {
+        localStorage.setItem("koolos_full_html", html);
+        alert("Full HTML saved — reloading.");
+        location.reload();
+      } catch (e) {
+        alert("Could not save HTML: " + e);
+      }
+    });
+    document.getElementById("clearFull").addEventListener("click", function(){
+      localStorage.removeItem("koolos_full_html");
+      alert("Saved full HTML cleared — reloading.");
+      location.reload();
+    });
+  </script>
+</body>
+</html>
